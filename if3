@@ -1,0 +1,19 @@
+/*if (condition)
+	statement_t
+else
+	statement_f
+*/
+#include <stdio.h>
+#include <conio.h>
+int main()
+{
+	int a;
+	printf ("\nEnter a number ");
+	scanf ("%d",&a);
+	if (a%2==0)   
+		printf ("\nNumber %d is even",a);
+	else
+		printf ("\nNumber %d is odd",a); 
+	getch();
+	return 0;
+}
