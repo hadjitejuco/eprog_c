@@ -1,0 +1,36 @@
+/* 
+if (condition_1)
+	statment_1;
+else if (condition_2)
+	statement_2;
+else if (condition_n)
+	statement_n;
+else
+	statement;
+*/
+//determine the largest inputted number     //simple if statememt
+#include <stdio.h>
+#include <conio.h>
+int main()
+{
+	int a,b; 	
+	printf ("\nEnter values for a and b");
+	scanf ("%d%d",&a,&b);
+	if (a>b)
+	{
+		printf ("\n%d is the largest number ",a);
+		printf ("\nNow you know...");
+	}
+	else if (b>a)
+	{
+		printf ("\n%d is the largest number ",b);
+		printf ("\nNow you know...");
+	}
+	else
+	{
+		printf ("\nboth numbers are equal ",b);
+		printf ("\nNow you know...");
+	}
+	getch();
+	return 0;
+}
