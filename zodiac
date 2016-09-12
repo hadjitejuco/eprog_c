@@ -1,0 +1,58 @@
+//http://www.astrology-zodiac-signs.com
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+#include <stdlib.h>
+void SetColor(int ForgC);
+void SetColor(int ForgC)
+{
+     WORD wColor;
+     //This handle is needed to get the current background attribute
+
+     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+     CONSOLE_SCREEN_BUFFER_INFO csbi;
+     //csbi is used for wAttributes word
+
+     if(GetConsoleScreenBufferInfo(hStdOut, &csbi))
+     {
+          //To mask out all but the background attribute, and to add the color
+          wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
+          SetConsoleTextAttribute(hStdOut, wColor);
+     }
+     return;
+}
+void gotoxy(int,int);
+void gotoxy(int x, int y) 
+{ 
+    COORD coord;
+    coord.X = x; 
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+int main()
+{
+	int day, month;
+	gotoxy(5,5);
+	SetColor(4); 
+	printf ("Enter day ");
+	scanf ("%d",&day);
+	gotoxy(5,7);
+	SetColor(9); 
+	printf ("Enter month ");
+	scanf ("%d",&month);
+	if ((month==3 && day>=21) || (month==4 && day <=19))
+		{
+			gotoxy(25,5);
+			printf ("Your sign is Aries");
+			gotoxy(25,6);
+			printf ("Your Element is Fire");
+			gotoxy(25,7);
+			printf ("Your Color is Red");
+		}
+	else if ((month==4 && day >=20) || (month==5 && day <=20))
+		printf ("Your sign is Taurus");
+	else
+		printf ("Invalid input");
+	getch();
+	return 0;
+}
