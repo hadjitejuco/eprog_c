@@ -1,0 +1,92 @@
+//http://www.astrology-zodiac-signs.com/
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+#include <stdlib.h>
+void SetColor(int ForgC);
+void SetColor(int ForgC)
+{
+     WORD wColor;
+     //This handle is needed to get the current background attribute
+     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+     CONSOLE_SCREEN_BUFFER_INFO csbi;
+     //csbi is used for wAttributes word
+     if(GetConsoleScreenBufferInfo(hStdOut, &csbi))
+     {
+          //To mask out all but the background attribute, and to add the color
+          wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
+          SetConsoleTextAttribute(hStdOut, wColor);
+     }
+     return;
+}
+void ClearConsoleToColors(int ForgC, int BackC);
+void ClearConsoleToColors(int ForgC, int BackC)
+{
+ WORD wColor = ((BackC & 0x0F) << 4) + (ForgC & 0x0F);
+               //Get the handle to the current output buffer...
+ HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+                     //This is used to reset the carat/cursor to the top left.
+ COORD coord = {0, 0};
+                  //A return value... indicating how many chars were written
+                    //   not used but we need to capture this since it will be
+                      //   written anyway (passing NULL causes an access violation).
+ DWORD count;
+
+                               //This is a structure containing all of the console info
+                      // it is used here to find the size of the console.
+ CONSOLE_SCREEN_BUFFER_INFO csbi;
+                 //Here we will set the current color
+ SetConsoleTextAttribute(hStdOut, wColor);
+ if(GetConsoleScreenBufferInfo(hStdOut, &csbi))
+ {
+                          //This fills the buffer with a given character (in this case 32=space).
+      FillConsoleOutputCharacter(hStdOut, (TCHAR) 32, csbi.dwSize.X * csbi.dwSize.Y, coord, &count);
+
+      FillConsoleOutputAttribute(hStdOut, csbi.wAttributes, csbi.dwSize.X * csbi.dwSize.Y, coord, &count );
+                          //This will set our cursor position for the next print statement.
+      SetConsoleCursorPosition(hStdOut, coord);
+ }
+ return;
+} 
+void gotoxy(int,int);
+void gotoxy(int x, int y) 
+{ 
+    COORD coord;
+    coord.X = x; 
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+int main()
+{
+	ClearConsoleToColors(0,15);
+	int month, day;
+	gotoxy(5,3);
+	SetColor(14);
+	printf ("Enter month ");
+	scanf ("%d",&month);
+	gotoxy(5,5);
+	SetColor(1);
+	printf ("Enter day ");
+	scanf ("%d",&day);
+	if ((month==3 && day>=21) || (month==4 && day <=19))
+		{
+		gotoxy(25,3);
+		printf ("ARIES\n");
+		gotoxy(25,4);
+		printf ("ARIES\n");
+		gotoxy(25,5);
+		printf ("ARIES\n");
+		gotoxy(25,6);
+		printf ("ARIES\n");
+		printf ("ARIES\n");
+		printf ("ARIES\n");
+		printf ("ARIES\n");
+		system ("pause>0");
+		}
+	else if ((month==4 && day >=20)||(month==5 && day<=20))
+		printf ("TAURUS");
+	else
+		printf ("invalid input");
+	
+	return 0;
+}
