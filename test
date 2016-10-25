@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+struct student
+{
+	int student_number;
+	char name[20];
+	int m1,m2,m3;
+	int tm,avg;
+	char result [20];
+};
+int main()
+{
+	student s[50];
+	int n, i;
+	printf ("\n enter n \n");
+	scanf ("%d",&n);
+	for (i=0; i<n;i++)
+	{
+		printf ("enter Student number, name, quiz1, quiz2 and quiz3 of student %d\n",i+1);
+		scanf ("%d%s%d%d%d",&s[i].student_number, s[i].name, &s[i].m1, &s[i].m2, &s[i].m3);
+		s[i].tm=s[i].m1+s[i].m2+s[i].m3;
+		s[i].avg = s[i].tm/3;
+		if (s[i].avg<50)
+			strcpy (s[i].result, "Fail");
+		else if (s[i].avg>=60 && s[i].avg<69)
+			strcpy(s[i].result, "Pass");
+		else if (s[i].avg>=70 && s[i].avg<79)
+			strcpy(s[i].result, "Average");
+		else if (s[i].avg>=80 && s[i].avg<89)
+			strcpy(s[i].result, "Good");
+		else
+			strcpy(s[i].result, "Very Good");
+	}
+	printf ("\n----------------------------------------------------------------\n");
+	printf ("student No  Name   Quiz1   Quiz2   Quiz3     Marks      Result\n");
+	for (i=0; i<n; i++)
+		printf ("%6d%8s%7d%7d%7d  %7d%15s\n",s[i].student_number,s[i].name,s[i].m1,s[i].m2,s[i].m3,s[i].avg,s[i].result);
+		printf ("\n----------------------------------------------------------------\n");
+	getch();}
+
+
+
